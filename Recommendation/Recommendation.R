@@ -6,7 +6,8 @@ library(ggplot2)
 library(readr)
 library(Rtsne)
 
-gower_dist <- daisy(data[,3:32], metric = "gower")
+#gower_dist <- daisy(data[,3:32], metric = "gower")
+gower_dist <- daisy(data[,3:16], metric = "gower")
 gower_mat <- as.matrix(gower_dist)
 listing <- data[,1:2]
 
@@ -24,7 +25,7 @@ for(i in 1:nrow(listing))
   idx = sorted$ix[2:11]
   #Use indexes to retrieve corresponding listing ids
   recom = listing[idx,'listing_id']
-  recommendations = rbind(recommendations, cbind(data$listing_id[1],recom,sorted$x[2:11]))
+  recommendations = rbind(recommendations, cbind(data$listing_id[i],recom,sorted$x[2:11]))
 }
 
 write.csv(recommendations, 'D:\\GitHub\\Airbnb\\Recommendation\\Nearest Neighbors.csv')
